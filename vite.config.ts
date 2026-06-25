@@ -4,6 +4,6 @@ import babel from "@rolldown/plugin-babel";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/awalpuputwedding/",
+  // base: "/awalpuputwedding/",
   plugins: [react(), babel({ presets: [reactCompilerPreset()] })],
 });
