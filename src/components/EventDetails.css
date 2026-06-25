@@ -1,0 +1,129 @@
+.event {
+  padding: 5rem 1.5rem;
+  background: linear-gradient(180deg, var(--bg-white) 0%, var(--cream) 100%);
+  display: flex;
+  justify-content: center;
+}
+
+.event__inner {
+  max-width: 800px;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.event--visible .event__inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.event__cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.event__card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(201, 169, 110, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.event__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold-light), var(--gold), var(--gold-light));
+}
+
+.event__ornament {
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin: 1rem 0;
+}
+
+.event__card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+
+.event__label {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+.event__name {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  color: var(--text-dark);
+  font-weight: 400;
+}
+
+.event__and {
+  font-size: 1rem;
+  color: var(--gold);
+  margin: 0.5rem 0;
+  font-weight: 300;
+}
+
+.event__detail {
+  font-size: 1.05rem;
+  color: var(--text-dark);
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.event__detail--light {
+  font-weight: 400;
+  color: var(--text-light);
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.event__address {
+  font-size: 0.9rem;
+  color: var(--text-medium);
+  line-height: 1.7;
+  margin-top: 0.75rem;
+}
+
+.event__info {
+  margin-top: 2rem;
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(201, 169, 110, 0.08);
+  border-radius: var(--radius);
+  border: 1px solid rgba(201, 169, 110, 0.15);
+}
+
+.event__info-text {
+  font-size: 0.95rem;
+  color: var(--text-medium);
+  line-height: 1.8;
+  font-weight: 400;
+}
+
+@media (max-width: 650px) {
+  .event__cards {
+    grid-template-columns: 1fr;
+  }
+
+  .event__card {
+    padding: 2rem 1.5rem;
+  }
+}

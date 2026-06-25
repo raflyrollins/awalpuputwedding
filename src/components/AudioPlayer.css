@@ -1,0 +1,64 @@
+.audio {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 200;
+}
+
+.audio__btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  box-shadow: 0 4px 16px rgba(201, 169, 110, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.audio__btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px rgba(201, 169, 110, 0.5);
+}
+
+.audio__icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.audio__bars {
+  display: flex;
+  align-items: center;
+  gap: 1.5px;
+  height: 10px;
+}
+
+.audio__bars span {
+  display: block;
+  width: 2px;
+  background: currentColor;
+  border-radius: 1px;
+  transition: height 0.3s ease;
+}
+
+.audio--on .audio__bars span {
+  animation: barAnim 1s ease-in-out infinite alternate;
+}
+
+.audio--on .audio__bars span:nth-child(1) { height: 8px; animation-delay: 0s; }
+.audio--on .audio__bars span:nth-child(2) { height: 4px; animation-delay: 0.2s; }
+.audio--on .audio__bars span:nth-child(3) { height: 6px; animation-delay: 0.4s; }
+.audio--on .audio__bars span:nth-child(4) { height: 3px; animation-delay: 0.1s; }
+
+.audio:not(.audio--on) .audio__bars span {
+  height: 3px;
+}
+
+@keyframes barAnim {
+  0% { height: 3px; }
+  100% { height: 9px; }
+}

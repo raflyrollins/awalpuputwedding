@@ -1,0 +1,180 @@
+/* Cover / Splash Screen */
+.cover {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(135deg, #1a0f0a 0%, #2C1810 40%, #3E2723 70%, #1a0f0a 100%);
+  overflow: hidden;
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(201, 169, 110, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 70%, rgba(244, 208, 197, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.cover__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+  animation: coverFadeIn 1.5s ease;
+}
+
+@keyframes coverFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cover__invite {
+  font-size: clamp(0.8rem, 1.5vw, 0.95rem);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--gold-light);
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+.cover__names {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, 3vw, 1.5rem);
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.cover__name {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--gold);
+  text-shadow: 0 2px 20px rgba(201, 169, 110, 0.3);
+  letter-spacing: 2px;
+}
+
+.cover__ampersand {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: var(--blush);
+  line-height: 1;
+}
+
+.cover__fullnames {
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  color: var(--gold-light);
+  letter-spacing: 2px;
+  font-weight: 300;
+  opacity: 0.8;
+  margin-bottom: 0.75rem;
+}
+
+.cover__date {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: white;
+  font-weight: 500;
+  margin-bottom: 2.5rem;
+}
+
+.cover__btn {
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  letter-spacing: 1px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(201, 169, 110, 0.3);
+}
+
+.cover__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(201, 169, 110, 0.4);
+}
+
+/* Main App */
+.app {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.app--open {
+  opacity: 1;
+}
+
+/* Navigation */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201, 169, 110, 0.15);
+}
+
+.nav__item {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-medium);
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.nav__item:hover {
+  color: var(--gold);
+  background: rgba(201, 169, 110, 0.1);
+}
+
+/* Quote Section */
+.quote-section {
+  padding: 5rem 1.5rem;
+  background: var(--cream);
+  display: flex;
+  justify-content: center;
+}
+
+.quote-section__inner {
+  max-width: 650px;
+  text-align: center;
+}
+
+.quote-section__text {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-medium);
+  line-height: 2;
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.quote-section__source {
+  font-size: 0.9rem;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* Remove old styles if any */
+.ticks,
+#center,
+#next-steps,
+#docs,
+#social,
+#spacer,
+.counter,
+.hero {
+  /* inherited from Hero.css */
+}

@@ -1,0 +1,94 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --gold: #C9A96E;
+  --gold-light: #E8D5A3;
+  --gold-dark: #A8874A;
+  --cream: #FFF8F0;
+  --blush: #F4D0C5;
+  --blush-light: #FCE8E0;
+  --sage: #A8B5A0;
+  --text-dark: #2C1810;
+  --text-medium: #5C4030;
+  --text-light: #8B7355;
+  --bg-white: #FFFAF5;
+  --shadow: 0 4px 20px rgba(44, 24, 16, 0.1);
+  --shadow-lg: 0 8px 40px rgba(44, 24, 16, 0.15);
+  --radius: 16px;
+
+  font-family: 'Gabarito', sans-serif;
+  color: var(--text-dark);
+  background-color: var(--bg-white);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 4px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input,
+textarea {
+  font-family: inherit;
+}
+
+/* Utility classes */
+.gold-text {
+  color: var(--gold);
+}
+
+.section-title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+}
+
+.section-subtitle {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  text-align: center;
+  color: var(--text-light);
+  margin-bottom: 3rem;
+  font-weight: 400;
+}

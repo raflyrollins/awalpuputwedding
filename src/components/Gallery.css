@@ -1,0 +1,366 @@
+/* ─────────────────────────────────────────────
+   Gallery Section
+   ───────────────────────────────────────────── */
+.gallery {
+  padding: 5rem 1.5rem 6rem;
+  background: var(--cream, #fdf9f5);
+}
+
+/* Header */
+.gallery__header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.gallery__eyebrow {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted, #a89f96);
+  margin-bottom: 0.6rem;
+}
+
+.gallery__title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 500;
+  color: var(--text-primary, #1a1208);
+  letter-spacing: -0.01em;
+}
+
+/* ─────────────────────────────────────────────
+   Grid — 12 kolom, 3 baris
+   Layout statis berdasarkan dimensi asli foto:
+
+   [ foto1 landscape 16:9 · span 8 ] [ foto4 portrait · span 4 ]
+   [ foto7 portrait · 3 ] [ foto3 portrait · 3 ] [ foto2 4:3 · 6 ]
+   [ foto5 landscape 16:9 · span 7 ] [ foto6 portrait · span 5 ]
+   ───────────────────────────────────────────── */
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: auto;
+  gap: 6px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* ── Sel dasar ── */
+.gallery__cell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--surface-1, #f0ece6);
+
+  /* stagger reveal */
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease, box-shadow 0.3s ease;
+}
+
+.gallery--visible .gallery__cell {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery__cell:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+.gallery__cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.gallery__cell:hover img {
+  transform: scale(1.06);
+}
+
+/* ── Span variants ── */
+
+/* Landscape 16:9 — col 8 dari 12 */
+.gallery__cell--wide {
+  grid-column: span 8;
+  aspect-ratio: 16 / 9;
+}
+
+/* Landscape 4:3 — col 6 dari 12 */
+.gallery__cell--medium {
+  grid-column: span 6;
+  aspect-ratio: 4 / 3;
+}
+
+/* Portrait 3:4 — col 4 dari 12 (default) */
+.gallery__cell--portrait {
+  grid-column: span 4;
+  aspect-ratio: 3 / 4;
+}
+
+/*
+  Override span untuk portrait di row tertentu:
+  - foto4  (grid pos 1): span 4 ✓ default
+  - foto7  (grid pos 2): span 3
+  - foto3  (grid pos 3): span 3
+  - foto6  (grid pos 6): span 5
+*/
+.gallery__cell:nth-child(1) {
+  grid-column: span 8;
+  aspect-ratio: 16 / 9;
+} /* foto1 wide */
+.gallery__cell:nth-child(2) {
+  grid-column: span 4;
+  aspect-ratio: 3 / 4;
+} /* foto4 portrait */
+.gallery__cell:nth-child(3) {
+  grid-column: span 3;
+  aspect-ratio: 3 / 4;
+} /* foto7 portrait sm */
+.gallery__cell:nth-child(4) {
+  grid-column: span 3;
+  aspect-ratio: 3 / 4;
+} /* foto3 portrait sm */
+.gallery__cell:nth-child(5) {
+  grid-column: span 6;
+  aspect-ratio: 4 / 3;
+} /* foto2 medium */
+.gallery__cell:nth-child(6) {
+  grid-column: span 7;
+  aspect-ratio: 16 / 9;
+} /* foto5 wide */
+.gallery__cell:nth-child(7) {
+  grid-column: span 5;
+  aspect-ratio: 3 / 4;
+} /* foto6 portrait lg */
+
+/* ── Overlay hover ── */
+.gallery__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(20, 12, 6, 0.55) 0%,
+    rgba(20, 12, 6, 0) 50%
+  );
+  display: flex;
+  align-items: flex-end;
+  padding: 0.85rem 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery__cell:hover .gallery__overlay {
+  opacity: 1;
+}
+
+.gallery__label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  border: 0.5px solid rgba(255, 255, 255, 0.4);
+  padding: 3px 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ─────────────────────────────────────────────
+   Lightbox
+   ───────────────────────────────────────────── */
+.gallery__lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(8, 5, 3, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  animation: lb-in 0.25s ease;
+}
+
+@keyframes lb-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.gallery__lb-img {
+  max-width: min(90vw, 840px);
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+  animation: lb-img-in 0.3s ease;
+}
+
+@keyframes lb-img-in {
+  from {
+    transform: scale(0.97);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.gallery__lb-close,
+.gallery__lb-nav {
+  position: fixed;
+  background: rgba(255, 255, 255, 0.1);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+
+.gallery__lb-close:hover,
+.gallery__lb-nav:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.gallery__lb-close {
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 1rem;
+}
+
+.gallery__lb-nav {
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.gallery__lb-nav--prev {
+  left: 1.5rem;
+}
+.gallery__lb-nav--next {
+  right: 1.5rem;
+}
+
+.gallery__lb-counter {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ─────────────────────────────────────────────
+   Responsive
+   ───────────────────────────────────────────── */
+
+/* Tablet — 6 kolom */
+@media (max-width: 760px) {
+  .gallery__grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 5px;
+  }
+
+  .gallery__cell:nth-child(1) {
+    grid-column: span 6;
+    aspect-ratio: 16 / 9;
+  }
+  .gallery__cell:nth-child(2) {
+    grid-column: span 6;
+    aspect-ratio: 3 / 4;
+  }
+  .gallery__cell:nth-child(3) {
+    grid-column: span 3;
+    aspect-ratio: 3 / 4;
+  }
+  .gallery__cell:nth-child(4) {
+    grid-column: span 3;
+    aspect-ratio: 3 / 4;
+  }
+  .gallery__cell:nth-child(5) {
+    grid-column: span 6;
+    aspect-ratio: 4 / 3;
+  }
+  .gallery__cell:nth-child(6) {
+    grid-column: span 6;
+    aspect-ratio: 16 / 9;
+  }
+  .gallery__cell:nth-child(7) {
+    grid-column: span 6;
+    aspect-ratio: 3 / 4;
+  }
+}
+
+/* Mobile — 4 kolom */
+@media (max-width: 480px) {
+  .gallery {
+    padding: 3.5rem 1rem 4rem;
+  }
+
+  .gallery__grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+  }
+
+  .gallery__cell:nth-child(1) {
+    grid-column: span 4;
+    aspect-ratio: 16 / 9;
+  }
+  .gallery__cell:nth-child(2) {
+    grid-column: span 4;
+    aspect-ratio: 3 / 4;
+  }
+  .gallery__cell:nth-child(3) {
+    grid-column: span 2;
+    aspect-ratio: 3 / 4;
+  }
+  .gallery__cell:nth-child(4) {
+    grid-column: span 2;
+    aspect-ratio: 3 / 4;
+  }
+  .gallery__cell:nth-child(5) {
+    grid-column: span 4;
+    aspect-ratio: 4 / 3;
+  }
+  .gallery__cell:nth-child(6) {
+    grid-column: span 4;
+    aspect-ratio: 16 / 9;
+  }
+  .gallery__cell:nth-child(7) {
+    grid-column: span 4;
+    aspect-ratio: 3 / 4;
+  }
+
+  .gallery__lightbox {
+    padding: 1rem;
+  }
+
+  .gallery__lb-nav--prev {
+    left: 0.5rem;
+  }
+  .gallery__lb-nav--next {
+    right: 0.5rem;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .gallery__cell,
+  .gallery__cell img,
+  .gallery__lb-img {
+    transition: none;
+    animation: none;
+  }
+}
